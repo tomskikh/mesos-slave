@@ -5,6 +5,15 @@ RUN apt-get update && \
 apt-get install --no-install-recommends -y ca-certificates curl && \
 rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && \
+apt-get install -y software-properties-common && \
+apt-add-repository -y ppa:openjdk-r/ppa && \
+apt-get update && \
+apt-get install -y openjdk-8-jdk && \
+dpkg --purge --force-depends ca-certificates-java && \
+apt-get install -y --no-install-recommends ca-certificates-java && \
+rm -rf /var/lib/apt/lists/*
+
 # https://github.com/Yelp/dumb-init
 RUN curl -fLsS -o /usr/local/bin/dumb-init https://github.com/Yelp/dumb-init/releases/download/v1.0.2/dumb-init_1.0.2_amd64 && chmod +x /usr/local/bin/dumb-init
 
